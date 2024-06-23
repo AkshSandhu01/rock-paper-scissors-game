@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rock paper game</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+  <p class="js-dev is-dev"></p>
+  <button class="js-dev-button dev-button" onclick="
+  
+    devRemoveStyle();
+  
+  "></button>
+  <p class="title">rock paper scissors</p>
+
+  <div class="button-container">
+  <button onclick="
+    
+    handleMove('rock')
+  " class="move-button"> <img src="/images/rock-emoji.png" alt="rock" class="move-icon">
+  </button>
+
+
+  <button onclick="
+    
+    handleMove('paper');
+  " class="move-button"><img src="/images/paper-emoji.png" alt="paper" class="move-icon">
+  </button>
+
+  <button onclick="
+
+  handleMove('scissors');
+  " class="move-button"><img src="/images/scissors-emoji.png" alt="scissors" class="move-icon">
+  </button>
+  </div>
+
+  <p class="js-result result">Result will be displayed here  </p>
+
+  <p class="js-moves moves">Moves will be displayed here
+
+  </p>
+
+  <p class="js-score score"></p>
+
+  <button class="reset-score-button" onclick="
+
+  scoreReset();
+
+  ">Reset Score</button>
+
+  <input class="js-token-input token-input" placeholder="Enter Token">
+
+  </div>
+
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+
+</html>
