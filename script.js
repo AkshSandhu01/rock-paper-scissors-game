@@ -2,16 +2,19 @@
 let computerMove = '';
 let result = '';
 const TOKEN = 'AKSH';
-let INPUT = '';
+let INPUT;
 // let playerClass = '';
 let devMode = false;
+
+let isAutoplaying = false;
+let intervalId;
 
 
 document.querySelector('.js-token-input').addEventListener('keydown',function(event){
   if(event.key === 'Enter'){
 
     document.querySelector('.js-token-input')
-      .classList.add('token-input-enterPressed');
+      .classList.add('token-input-enterPressed'); //opacity
   }
 });
 
@@ -21,8 +24,10 @@ document.querySelector('.js-token-input')
     if(event.key === 'Enter'){
       document.querySelector('.js-token-input').classList.remove('token-input-enterPressed');
 
-      INPUT = document.querySelector('.js-token-input').value;
+      tokenInput = document.querySelector('.js-token-input');
 
+      INPUT = tokenInput.value;
+      
       devToken(INPUT);
     }
 
@@ -33,6 +38,9 @@ function devToken(INPUT){
   if(INPUT === TOKEN){
     document.querySelector('.js-dev')
       .innerHTML = 'DEV Mode on';
+    
+    document.querySelector('.js-token-input')
+      .value = '';
 
     document.querySelector('.js-dev-button')
       .classList.add('js-dev-button-active');
@@ -42,12 +50,16 @@ function devToken(INPUT){
 
       devMode = true;
       handleMove(playerMove);
+  }if(INPUT != TOKEN){
+    document.querySelector('.js-token-input')
+    .value = '';
   }else{
     devMode = false;
     handleMove(playerMove);
   }
 
 }
+
 
 
 let score = JSON.parse(localStorage.getItem('score')) || {
@@ -62,6 +74,11 @@ updateScoreElement();
 // }
 
 function handleMove(playerMove){
+
+  if(isAutoplaying){
+    return;
+  }
+
   if(devMode){
     devGame(playerMove);
   }else{
@@ -87,6 +104,7 @@ function devRemoveStyle(){
 }
 
 function devGame(playerMove){
+
   pickComputerMove();
 
 if(playerMove === 'scissors'){
@@ -232,7 +250,48 @@ computerMove = 'scissors';
 }
 
 
+return computerMove;
+
 }
+
+
+
+function autoPlay(){
+
+
+  if(!isAutoplaying){
+
+    intervalId = setInterval(function(){
+      const playerMove = pickComputerMove(computerMove);
+
+      if(devMode){
+        devGame(playerMove);
+      } else{
+        playGame(playerMove);
+      }
+
+      document.querySelector('.auto-play-button')
+      .innerHTML = 'Stop Play';
+    },1000);
+    isAutoplaying = true;
+
+    document.querySelector('.autoplaying')
+      .innerHTML = 'Stop autoplay to play manually';
+      
+    
+
+  } else{
+    clearInterval(intervalId);
+    isAutoplaying = false;
+    document.querySelector('.auto-play-button')
+      .innerHTML = 'Auto Play';
+
+    document.querySelector('.autoplaying')
+      .innerHTML = '';
+  }
+
+}
+
 
 
 function scoreReset(){
@@ -244,11 +303,4 @@ function scoreReset(){
   document.querySelector('.js-result').innerHTML = 'Result will be displayed here';
   document.querySelector('.js-moves').innerHTML = 'Moves will be displayed here';
 }
-
-
-
-
-
-
-
 
