@@ -84,17 +84,24 @@ p{
 }
 
 .result{
+  /* display: flex; */
   font-size: 25px;
   font-weight: bold;
   margin-top: 50px;
+}
+
+.autoplaying{
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .score{
   margin-top: 30px;
 }
 
-.reset-score-button{
-  display: block;
+.reset-score-button,
+.auto-play-button{
+  /* display: block; */
   margin-bottom: 20px;
   background-color: white;
   border: none;
@@ -103,7 +110,13 @@ p{
   cursor: pointer;
 }
 
+.reset-score-button:active,
+.auto-play-button:active{
+  opacity: 0.8;
+}
+
 .token-input{
+  display: block;
   padding: 5px;
   font-weight: bold;
   border: none;
